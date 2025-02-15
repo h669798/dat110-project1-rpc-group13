@@ -20,9 +20,8 @@ public class MessageConnection {
 			this.socket = socket;
 			outStream = new DataOutputStream(socket.getOutputStream());
 			inStream = new DataInputStream (socket.getInputStream());
-		} catch (IOException ex) {
-			System.out.println("Connection: " + ex.getMessage());
-			ex.printStackTrace();
+		} catch (IOException e) {
+			System.err.println("Connection failed. " + e.getMessage());
 		}
 	}
 
@@ -42,7 +41,7 @@ public class MessageConnection {
 		Message message = null;
 		byte[] data = new byte[SEGMENTSIZE];
 		try {
-			inStream.read(data);
+			inStream.readFully(data);
 			message = decapsulate(data);
 		}
 		catch (IOException e) {

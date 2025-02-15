@@ -15,7 +15,6 @@ public class MessagingServer {
 			this.welcomeSocket = new ServerSocket(port);
 		} catch (IOException ex) {
 			System.out.println("Messaging server: " + ex.getMessage());
-			ex.printStackTrace();
 		}
 	}
 
@@ -40,7 +39,6 @@ public class MessagingServer {
 				welcomeSocket.close();
 			} catch (IOException ex) {
 				System.out.println("Messaging server: " + ex.getMessage());
-				ex.printStackTrace();
 			}
 		}
 	}

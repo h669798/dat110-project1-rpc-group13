@@ -13,44 +13,36 @@ public class Controller  {
 		DisplayStub display;
 		SensorStub sensor;
 		
-		RPCClient displayclient,sensorclient;
+		RPCClient displayClient,sensorClient;
 		
 		System.out.println("Controller starting ...");
 				
 		// create RPC clients for the system
-		displayclient = new RPCClient(Common.DISPLAYHOST,Common.DISPLAYPORT);
-		sensorclient = new RPCClient(Common.SENSORHOST,Common.SENSORPORT);
+		displayClient = new RPCClient(Common.DISPLAYHOST,Common.DISPLAYPORT);
+		sensorClient = new RPCClient(Common.SENSORHOST,Common.SENSORPORT);
 		
 		// setup stop methods in the RPC middleware
-		RPCClientStopStub stopdisplay = new RPCClientStopStub(displayclient);
-		RPCClientStopStub stopsensor = new RPCClientStopStub(sensorclient);
-				
-		// TODO - START
-		
-		// create local display and sensor stub objects
-		// connect to sensor and display RPC servers - using the RPCClients
-		// read value from sensor using RPC and write to display using RPC
+		RPCClientStopStub stopdisplay = new RPCClientStopStub(displayClient);
+		RPCClientStopStub stopsensor = new RPCClientStopStub(sensorClient);
 			
-		display = new DisplayStub(displayclient);
-		sensor = new SensorStub(sensorclient);
+		display = new DisplayStub(displayClient);
+		sensor = new SensorStub(sensorClient);
 
-		displayclient.connect();
-		sensorclient.connect();
+		displayClient.connect();
+		sensorClient.connect();
 
 		// finite loop
 		for (int i = 0; i < 10; i++) {
-			 int temp = (int) Math.round(sensor.read());  // Avrund verdien  
-			    display.write(String.valueOf(temp)); 
+			 int temp = (int) Math.round(sensor.read());
+			    display.write(String.valueOf(temp));
 		}
-		// TODO - END
 		
 		stopdisplay.stop();
 		stopsensor.stop();
 	
-		displayclient.disconnect();
-		sensorclient.disconnect();
+		displayClient.disconnect();
+		sensorClient.disconnect();
 		
 		System.out.println("Controller stopping ...");
-		
 	}
 }

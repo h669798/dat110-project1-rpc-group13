@@ -2,7 +2,6 @@ package no.hvl.dat110.rpc;
 
 import java.util.HashMap;
 
-import no.hvl.dat110.TODO;
 import no.hvl.dat110.messaging.MessageConnection;
 import no.hvl.dat110.messaging.Message;
 import no.hvl.dat110.messaging.MessagingServer;
@@ -17,31 +16,22 @@ public class RPCServer {
 	private HashMap<Byte,RPCRemoteImpl> services;
 	
 	public RPCServer(int port) {
-		
 		this.msgserver = new MessagingServer(port);
 		this.services = new HashMap<Byte,RPCRemoteImpl>();
-		
 	}
 	
 	public void run() {
-		
 		// the stop RPC method is built into the server
 		RPCRemoteImpl rpcstop = new RPCServerStopImpl(RPCCommon.RPIDSTOP,this);
-		
 		System.out.println("RPC SERVER RUN - Services: " + services.size());
-			
-		connection = msgserver.accept(); 
-		
+		connection = msgserver.accept();
 		System.out.println("RPC SERVER ACCEPTED");
-		
 		boolean stop = false;
 		
 		while (!stop) {
-	    
 		   byte rpcid = 0;
 		   Message requestmsg, replymsg;
-		   
-		   
+
 		   try {
                // Receive an RPC request message
                requestmsg = connection.receive();
@@ -67,19 +57,15 @@ public class RPCServer {
                } else {
                    System.out.println("Unknown RPC ID: " + rpcid);
                }
-		   
-		   
-		   
-		   // TODO - END
-
-			// stop the server if it was stop methods that was called
-		   if (rpcid == RPCCommon.RPIDSTOP) {
-			   stop = true;
-		   }} catch (Exception e) {
-               e.printStackTrace();
-		}
+			   if (rpcid == RPCCommon.RPIDSTOP) {
+				   stop = true;
+			   }
+		   } catch (Exception e) {
+			   System.out.println("RPC run error: " + e.getMessage());
+			}
 	
-	}}
+		}
+	}
 	
 	// used by server side method implementations to register themselves in the RPC server
 	public void register(byte rpcid, RPCRemoteImpl impl) {
