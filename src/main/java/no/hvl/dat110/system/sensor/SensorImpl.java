@@ -13,10 +13,16 @@ public class SensorImpl extends RPCRemoteImpl {
 
 	// Implementation of the RPC method
 	public int read() {
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			System.err.println("Could not wait between readings. " + e.getMessage());
+		}
 		long seconds = System.currentTimeMillis();
 		double temp = RANGE * Math.sin((double) seconds / 1000);
-		System.out.println("READ:" + temp);
-		return (int) Math.ceil(temp);
+		System.out.println("--------------------");
+		System.out.println("READ: " + String.format("%.2f", temp) + " °C");
+		return (int) Math.round(temp);
 	}
 
 	// Called by RPC server on rpc identifier corresponding to read

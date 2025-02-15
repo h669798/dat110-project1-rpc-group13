@@ -21,8 +21,7 @@ public class RPCServerStopImpl extends RPCRemoteImpl {
 	}
 	
 	public void stop() {
-		
+		System.out.println("--------------------");
 		System.out.println("RPC server executing stop");
-		
 	}
 }

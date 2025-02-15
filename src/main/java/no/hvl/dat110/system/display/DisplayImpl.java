@@ -12,7 +12,7 @@ public class DisplayImpl extends RPCRemoteImpl {
 	}
 
 	public void write(String message) {
-		System.out.println("DISPLAY:" + message);
+		System.out.println("DISPLAY: " + message + " °C");
 	}
 	
 	public byte[] invoke(byte[] param) {
