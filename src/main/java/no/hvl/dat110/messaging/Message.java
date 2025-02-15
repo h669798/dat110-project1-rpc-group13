@@ -1,26 +1,20 @@
 package no.hvl.dat110.messaging;
 
-//import no.hvl.dat110.TODO;
-
 public class Message {
 
-	// the up to 127 bytes of data (payload) that a message can hold
+	// Variable (up to 127 in value):
 	private byte[] data;
 
-	
+	// Constructor:
 	public Message(byte[] data) {
-		
-		if (data != null && data.length<MessageUtils.SEGMENTSIZE) {
-			this.data= data;;
+		if (data == null || data.length > MessageUtils.SEGMENTSIZE) {
+			throw new IllegalArgumentException("Data can't be null or above 127 in value.");
 		}
-		
-	
-			
-		// TODO - END
+		this.data = data;
 	}
 
+	// Get-method for data:
 	public byte[] getData() {
-		return this.data; 
+		return this.data;
 	}
-
 }
